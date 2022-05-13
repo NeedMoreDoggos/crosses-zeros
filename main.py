@@ -51,7 +51,7 @@ def cz_game(solo=False, choice=False):
     move = 0 + choice
     field = [[' ', ' ', ' '] for i in range(3)]
     move = 0
-    # player1, player2 = players(), 'AI' * solo
+    player1, player2 = players(), 'AI' * solo
 
     while ' ' in flattening(field):
         changer(field, move, solo)
@@ -92,4 +92,5 @@ with open('json_test.txt', 'r', encoding='utf-8') as fon:
 print(dicti2)
 
 save([[' ', ' ', ' '] for i in range(3)])
-print(load())
+print(solo())
+print(config())
