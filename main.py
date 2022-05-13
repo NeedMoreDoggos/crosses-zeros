@@ -21,7 +21,13 @@ def changer(field, move, solo=False):
     return
 
 
-def win(kekw, move): # посмотреть это говно на свежую голову
+def win(kekw, move): # посмотреть это говно на свежую голову, это какой-то пиздец
+    field = [[1*i, 2*i, 3*i]for i in range(1, 4)]
+    print(field)
+    for i in range(3):
+        for j in range(3):
+            if kekw[i][j] != ' ':
+                field[i][j] = kekw[i][j]
 
     for i in range(3):
         if field[i][0] == field[i][1] == field[i][2]:
@@ -32,7 +38,7 @@ def win(kekw, move): # посмотреть это говно на свежую 
         return True
     if field[2][0] == field[1][1] == field[0][2]:
         return True
-    print(field)
+    print(field, kekw)
     return False
 
 
@@ -44,7 +50,8 @@ def cz_game(solo=False, choice=False):
     while ' ' in flattening(field):
         changer(field, move, solo)
         if win(field, move):
-            print('Победа!', 'X' if move % 2 == 0 else '0', 'выиграли')
+            print('Победа!', 'Крестики' if move % 2 == 0 else 'Нолики', 'выиграли')
+            print(field)
             return
         print(*field, sep='\n')
         move += 1
