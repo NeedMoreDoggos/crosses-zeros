@@ -1,4 +1,5 @@
 from menu import *
+import json
 
 
 def flattening(data):
@@ -11,6 +12,7 @@ def flattening(data):
 
 def changer(field, move, solo=False):
     coordinates = [int(digit) - 1 for digit in input('Введите X, Y через пробел => ').split() if digit.isdigit()] if not solo else AI(field, )
+
     if len(coordinates) != 2:
         print(f'Должно быть 2 координаты. У вас {coordinates}')
         return changer(field, move, solo)
@@ -20,6 +22,7 @@ def changer(field, move, solo=False):
     if field[coordinates[0]][coordinates[1]] in 'X0':
         print(f'Клеточка уже занята {field[coordinates[0]][coordinates[1]]}')
         return changer(field, move, solo)
+
     field[coordinates[0]][coordinates[1]] = 'X' if move % 2 == 0 else '0'
     return
 
@@ -48,6 +51,7 @@ def cz_game(solo=False, choice=False):
     move = 0 + choice
     field = [[' ', ' ', ' '] for i in range(3)]
     move = 0
+    player1, player2 = players(), 'AI' * solo
 
     while ' ' in flattening(field):
         changer(field, move, solo)
@@ -61,6 +65,11 @@ def cz_game(solo=False, choice=False):
         print('Ничья!')
 
     return
+
+
+def game():
+    while restart():
+        cz_game(solo())
 
 
 # cz_game()

@@ -8,3 +8,8 @@ def solo():
 
 
 def read_config():
+    with open('config.txt', 'r', encoding='utf-8') as fin:
+
+
+def players():
+    return input('Введите имя/имена').split()
