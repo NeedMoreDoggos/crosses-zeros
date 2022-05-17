@@ -1,7 +1,10 @@
 from menu import *
 import json
 
+# я бы с раздела помощи начал
+# заодно сам себе в голове уложил: что я хочу пользователю вывести, а что от него получить и в каком виде
 
+# используй чёртовы комментарии! описывай, что делаешь!
 def flattening(data):
     if not data:
         return []
@@ -9,8 +12,10 @@ def flattening(data):
         return flattening(data[0]) + flattening(data[1:])
     return [data[0]] + flattening(data[1:])
 
-
+# используй чёртовы комментарии! описывай, что делаешь!
 def changer(field, move, solo=False):
+    # такие длинные строки не приветствуются, их неудобно читать
+    # в чём проблема написать нормальный if not solo ?
     coordinates = [int(digit) - 1 for digit in input('Введите X, Y через пробел => ').split() if digit.isdigit()] if not solo else AI(field, )
 
     if len(coordinates) != 2:
@@ -26,8 +31,9 @@ def changer(field, move, solo=False):
     field[coordinates[0]][coordinates[1]] = 'X' if move % 2 == 0 else '0'
     return
 
-
-def win(kekw, move): # посмотреть это говно на свежую голову, это какой-то пиздец
+# используй чёртовы комментарии! описывай, что делаешь!
+def win(kekw, move):
+    # нафига мы map(), all() lambda-функции проходили?...
     field = [[1+3*i, 2+3*i, 3+3*i]for i in range(3)]
     for i in range(3):
         for j in range(3):
@@ -46,7 +52,7 @@ def win(kekw, move): # посмотреть это говно на свежую 
 
     return False
 
-
+# используй чёртовы комментарии! описывай, что делаешь!
 def cz_game(solo=False, choice=False):
     move = 0 + choice
     field = [[' ', ' ', ' '] for i in range(3)]
@@ -62,11 +68,12 @@ def cz_game(solo=False, choice=False):
         print(*field, sep='\n')
         move += 1
     else:
+        # а последний ход разве прям никогда не может быть выигрышным?
         print('Ничья!')
 
     return
 
-
+# используй чёртовы комментарии! описывай, что делаешь!
 def game():
     while restart():
         cz_game(solo())
@@ -81,7 +88,7 @@ dicti = {
     'c': 3
 }
 
-
+# используй чёртовы комментарии! описывай, что делаешь!
 with open('json_test.txt', 'w', encoding='utf-8') as fin:
     fin.write(json.dumps(dicti, indent=4))
 
@@ -94,3 +101,8 @@ print(dicti2)
 save([[' ', ' ', ' '] for i in range(3)])
 print(solo())
 print(config())
+
+
+# за такие commit messages – грохну весь проект, будешь с нуля писать!
+# пошутить можно в коде в комментах, но не в коммитах!
+# и это тебе любой тимлид скажет – на случай, если думаешь, что я якобы к ерунде придираюсь
