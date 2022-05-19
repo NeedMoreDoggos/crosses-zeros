@@ -109,7 +109,7 @@ def line_score(field, cont):
     sum = 0
     counter1 = dict()
     counter2 = dict()
-    print(cont)
+
     for i in range(len(field)):
         counter1[field[x][i]] = counter1.setdefault(field[x][i], 0) + 1
         counter2[field[i][y]] = counter2.setdefault(field[i][y], 0) + 1
@@ -160,7 +160,6 @@ def medium_ai(field):
         for j in range(len(field)):
             if field[i][j] == ' ':
                 scores += [[[i, j], score(field, [i, j])]]
-    print(scores)
 
     return max(scores, key=lambda x: x[1])[0]
 

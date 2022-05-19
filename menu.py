@@ -69,26 +69,30 @@ def players():
     return input('Введите имя/имена').split()
 
 
-def load():
+def load(name1, name2):
     """
     Зачатки загрузки. Сделаю просто словарик с картежами именами игроков и полем.
     :return: Игровое поле.
     """
     try:
         with open('save.txt', 'r', encoding='utf-8') as fin:
-            return json.loads(fin.read())
+            return json.loads(fin.read())[(name1, name2)]
     except:
         print('Сохранения не найдеы')
-        return [[' ', ' ', ' '] for i in range(3)]
+        return {(name1, name2): [[' ', ' ', ' '] for i in range(3)]}
 
 
-def save(field):
+def save(name1, name2, field):
     """
     Сохраняем текущее безобразие.
     :param field: Текущее поле.
     :return: NoneType
     """
+    for_save = load(name1, name2)
+    for_save[(name1, name2)] = field
     with open('save.txt', 'w', encoding='utf-8') as fot:
-        fot.write(json.dumps(field))
+        fot.write(json.dumps(for_save))
 
 
+def prep_game():
+    pass

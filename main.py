@@ -31,8 +31,6 @@ def changer(field, move, solo=True):
     :param solo: Кол-во игроков.
     :return: NoneType
     """
-    print(move)
-
     if solo and move % 2 == 1:
          coordinates = medium_ai(field)
     else:
@@ -108,27 +106,18 @@ def cz_game(solo=True, choice=False):
     return
 
 
+def start_game():
+    configs = config()
+    settings = prep_game()
+    leave = ''
+
+    while leave not in ('выход', 'out'):
+        cz_game()
+        leave = input('Напишите "выход" или "out", чтобы выйти')
+
+    return
+
 
 cz_game()
-# print(solo())
 
-# dicti = {
-#     'a': 1,
-#     'b': 2,
-#     'c': 3
-# }
-
-# Тестовые записи. Тут нет ничего интересно. Просто подсказки для самого себя о том, как это работает.
-# with open('json_test.txt', 'w', encoding='utf-8') as fin:
-#     fin.write(json.dumps(dicti, indent=4))
-#
-# with open('json_test.txt', 'r', encoding='utf-8') as fon:
-#     print(str(fon))
-#     dicti2 = json.loads(fon.read())
-#
-# print(dicti2)
-#
-# save([[' ', ' ', ' '] for i in range(3)])
-# print(solo())
-# print(config())
 
