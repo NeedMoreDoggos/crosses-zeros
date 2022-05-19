@@ -1,7 +1,7 @@
 from random import choice
 
 
-# Отдельно прописываю все это безобразие выбора, чтобы не запутатьс окончательно в этом обилии функций.
+# Отдельно прописываю все это безобразие выбора, чтобы не запутаться окончательно в этом обилии функций.
 # Тут алгоритмы выбора
 
 
@@ -19,6 +19,56 @@ def easy_ai(field):
                 choices += [[i, j]]
 
     return choice(choices)
+
+
+def is_diagonal(cont):
+    """
+    Проверяем, находится ли точка на диагонали.
+    :param cont: Координаты точки.
+    :return: True -- если лежит. False -- если не лежит.
+    """
+    x, y = cont
+    if x - y == 0:
+        return True
+    if x + y == 2:
+        return True
+
+
+def diagonal_score(field, cont):
+    """
+    Находим очки диагоналей. Суть та же, что и в линиях. С.м. ниже
+    :param field: Текущее игровое поле.
+    :param cont: Координаты точки.
+    :return: Кол-во очков.
+    """
+    x, y = cont
+    sum = 0
+    counter1 = dict()
+    counter2 = dict()
+
+    if x == y:
+        for i in range(len(field)):
+            counter1[field[i][i]] = counter1.setdefault(field[i][i], 0) + 1
+    if x + y == 2:
+        for i in range(len(field)):
+            counter2[field[0 + i][2 - i]] = counter2.setdefault(field[0 + i][2 - i], 0) + 1
+
+    if counter1.get('0') == 2 or counter2.get('0') == 2:
+        return 9999
+    if counter1.get('X') == 2 or counter2.get('X') == 2:
+        return 4999
+    if len(counter1) == 1:
+        sum += 10
+    if len(counter2) == 1:
+        sum += 10
+    if len(counter1) == 2:
+        sum += 20
+    if len(counter2) == 2:
+        sum += 20
+
+    return sum
+
+
 
 
 
@@ -59,14 +109,27 @@ def line_score(field, cont):
     sum = 0
     counter1 = dict()
     counter2 = dict()
-
+    print(cont)
     for i in range(len(field)):
         counter1[field[x][i]] = counter1.setdefault(field[x][i], 0) + 1
         counter2[field[i][y]] = counter2.setdefault(field[i][y], 0) + 1
 
-    if counter1['X'] = 2 or counter1['0'] = 2 or counter2['X'] = 2 or counter2['0'] = 2:
+    if counter1.get('0') == 2 or counter2.get('0') == 2:
+        print('ping 1')
         return 9999
-    pass
+    if counter1.get('X') == 2 or counter2.get('X') == 2:
+        print('ping 2')
+        return 4999
+    if len(counter1) == 1:
+        sum += 10
+    if len(counter2) == 1:
+        sum += 10
+    if len(counter1) == 2:
+        sum += 20
+    if len(counter2) == 2:
+        sum += 20
+
+    return sum
 
 
 def score(field, cont):
@@ -96,11 +159,17 @@ def medium_ai(field):
     for i in range(len(field)):
         for j in range(len(field)):
             if field[i][j] == ' ':
-                scores += [[i, j], score(field, [i, j])]
+                scores += [[[i, j], score(field, [i, j])]]
+    print(scores)
 
     return max(scores, key=lambda x: x[1])[0]
 
 
-
-test = [['X', ' ', ' '] for _ in range(3)]
-print(easy_ai(test))
+test = [
+    ['0', ' ', ' '],
+    [' ', 'X', ' '],
+    ['X', ' ', ' ']
+]
+# print(easy_ai(test))
+# print(medium_ai(test))
+# print(test[2][0])

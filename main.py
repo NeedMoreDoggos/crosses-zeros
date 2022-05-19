@@ -1,4 +1,5 @@
 from menu import *
+from AIs import *
 import json
 
 # Ну в чем суть. Я собираю итоговую программу из 3 модулей, который состоят из миллиардов функций.
@@ -21,7 +22,7 @@ def flattening(data):
     return [data[0]] + flattening(data[1:])
 
 
-def changer(field, move, solo=False):
+def changer(field, move, solo=True):
     """
     Заполняет пустую клетку по координатам. Скорее всего, я перепишу ее так, что координаты будут поступать из вне.
     Но я пока не решил это.
@@ -30,7 +31,12 @@ def changer(field, move, solo=False):
     :param solo: Кол-во игроков.
     :return: NoneType
     """
-    coordinates = [int(digit) - 1 for digit in input('Введите X, Y через пробел => ').split() if digit.isdigit()] if not solo else AI(field, )
+    print(move)
+
+    if solo and move % 2 == 1:
+         coordinates = medium_ai(field)
+    else:
+        coordinates = [int(digit) - 1 for digit in input('Введите X, Y через пробел => ').split() if digit.isdigit()]
 
     if len(coordinates) != 2:
         print(f'Должно быть 2 координаты. У вас {coordinates}')
@@ -73,7 +79,7 @@ def win(kekw, move):
     return False
 
 
-def cz_game(solo=False, choice=False):
+def cz_game(solo=True, choice=False):
     """
     Зачаток функции, который будет запускать процесс самой игры. Оно игается, но пока логика работы не до
     конца определена. Я думаю, как суда кидать аргументы из save'а.
@@ -84,7 +90,7 @@ def cz_game(solo=False, choice=False):
     move = 0 + choice
     field = [[' ', ' ', ' '] for i in range(3)]
     move = 0
-    player1, player2 = players(), 'AI' * solo #думаю о том, как лучше вводить имена
+    # player1, player2 = players(), 'AI' * solo #думаю о том, как лучше вводить имена
 
     while ' ' in flattening(field):
         changer(field, move, solo)
@@ -103,26 +109,26 @@ def cz_game(solo=False, choice=False):
 
 
 
-# cz_game()
+cz_game()
 # print(solo())
 
-dicti = {
-    'a': 1,
-    'b': 2,
-    'c': 3
-}
+# dicti = {
+#     'a': 1,
+#     'b': 2,
+#     'c': 3
+# }
 
 # Тестовые записи. Тут нет ничего интересно. Просто подсказки для самого себя о том, как это работает.
-with open('json_test.txt', 'w', encoding='utf-8') as fin:
-    fin.write(json.dumps(dicti, indent=4))
-
-with open('json_test.txt', 'r', encoding='utf-8') as fon:
-    print(str(fon))
-    dicti2 = json.loads(fon.read())
-
-print(dicti2)
-
-save([[' ', ' ', ' '] for i in range(3)])
-print(solo())
-print(config())
+# with open('json_test.txt', 'w', encoding='utf-8') as fin:
+#     fin.write(json.dumps(dicti, indent=4))
+#
+# with open('json_test.txt', 'r', encoding='utf-8') as fon:
+#     print(str(fon))
+#     dicti2 = json.loads(fon.read())
+#
+# print(dicti2)
+#
+# save([[' ', ' ', ' '] for i in range(3)])
+# print(solo())
+# print(config())
 
