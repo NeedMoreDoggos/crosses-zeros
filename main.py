@@ -96,21 +96,21 @@ def win(kekw, move):
     return False
 
 
-def cz_game(solo=True, choice=False):
+def cz_game(settings):
     """
     Зачаток функции, который будет запускать процесс самой игры. Оно игается, но пока логика работы не до
     конца определена. Я думаю, как суда кидать аргументы из save'а.
-    :param solo: Режим.
-    :param choice: Х или 0.
+    :argument Словарь с настройками.
     :return: NoneType
     """
-    move = 0 + choice
-    field = [[' ', ' ', ' '] for i in range(3)]
-    move = 0
-    # player1, player2 = players(), 'AI' * solo #думаю о том, как лучше вводить имена
+    move = 0 + settings['choice']
+    if settings.get('load', False):
+        field = [[' ', ' ', ' '] for i in range(3)]
+    else:
+        field = settings['load']['field']
 
     while ' ' in flattening(field):
-        changer(field, move, solo)
+        changer(field, move, settings['solo'])
         if win(field, move):
             print('Победа!', 'Крестики' if move % 2 == 0 else 'Нолики', 'выиграли!')
             print(*field, sep='\n')
@@ -126,17 +126,16 @@ def cz_game(solo=True, choice=False):
 
 
 def start_game():
-    configs = config()
     settings = prep_game()
     leave = ''
 
     while leave not in ('выход', 'out'):
-        cz_game()
+        cz_game(settings)
         leave = input('Напишите "выход" или "out", чтобы выйти')
 
     return
 
 
-cz_game()
+start_game()
 
 
